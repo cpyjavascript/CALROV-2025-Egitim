@@ -1,0 +1,9 @@
+{
+    "firstname": "kaan",
+    "AGE":17,
+    "parents":
+    [
+        {"age":49},
+        {"age":48}
+    ]
+}
