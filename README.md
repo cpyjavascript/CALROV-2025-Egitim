@@ -5,7 +5,9 @@ Sizden bu hafta öğrendiğiniz şeyleri kullanarak bir ödev oluşturup bu repo
 
 Yapmanız Gerekenler:
 - 
-- "/dev/ttyACM0" ile bir MAVLink bağlantısı oluşturarak "ATTITUDE" ve "HEARTBEAT" mesajlarını ayıklayarak bunları logging ile ekrana yazdırın.
+- İlk olarak proxy.py dosyasını arkada çalıştırın ve deneme süreci boyunca açık bırakın.
+
+- "udp:127.0.0.1:14550" ile bir MAVLink bağlantısı oluşturarak "ATTITUDE" ve "HEARTBEAT" mesajlarını ayıklayarak bunları logging ile ekrana yazdırın.
 
 - "ATTITUDE" mesajı için ayrı bir fonksiyon ve "HEARTBEAT" mesajı için ayrı bir fonksiyon oluşturup bu fonksiyonları aynı classa atın.
 
