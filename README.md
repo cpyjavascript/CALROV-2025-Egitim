@@ -21,3 +21,7 @@ Notlar:
 
 - Herhangi bir sorununuz olduğunda bize sorabilirsiniz. Hepinize kolay gelsin.
 
+- Son tarih: 1 Ekim Salı
+
+- Ödevi tamamen doğru yapmanıza gerek yok yapabildiğiniz kadarını atın önemli olan bir ödev çıkarmış olmanız.
+
