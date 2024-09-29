@@ -30,8 +30,6 @@ class aksiyonlar:
 
     def heartbYazdır(self):
         heartbeat = mavlinkBaglantisi.recv_match(type="HEARTBEAT", blocking=True)
-        if heartbeat:
-            self.logger.info(heartbeat)
         sleep(1)
 
 nesneler = aksiyonlar(logger, None)
@@ -44,7 +42,7 @@ heartbeat_thread.start()
 
 while aktifMi:
     mesaj = mavlinkBaglantisi.recv_match(blocking=True)
-    print(f"Gelen mesaj: {mesaj}")
+    logger.info(mesaj)
 
     aksiyonlar.mesaj = mesaj
     sleep(1)
