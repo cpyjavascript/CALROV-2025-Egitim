@@ -22,10 +22,10 @@ class aksiyonlar:
         self.mesaj = mesaj
 
 
-    def irtifaYazdır(self):
+    def attiduteYazdır(self):
         if self.mesaj and hasattr(self.mesaj, 'alt'):
-            irtifa = self.mesaj.alt
-            self.logger.info(f"İrtifa: {irtifa} metre")
+            attidute = self.mesaj.alt
+            self.logger.info(f"ATTIDUTE: {attidute}")
         sleep(1)
 
     def heartbYazdır(self):
@@ -34,10 +34,10 @@ class aksiyonlar:
 
 nesneler = aksiyonlar(logger, None)
 
-irtifa_thread = Thread(target=nesneler.irtifaYazdır)
+attidute_thread = Thread(target=nesneler.attiduteYazdır)
 heartbeat_thread = Thread(target=nesneler.heartbYazdır)
 
-irtifa_thread.start()
+attidute_thread.start()
 heartbeat_thread.start()
 
 while aktifMi:
@@ -47,5 +47,5 @@ while aktifMi:
     aksiyonlar.mesaj = mesaj
     sleep(1)
 
-irtifa_thread.join()
+attidute_thread.join()
 heartbeat_thread.join()
