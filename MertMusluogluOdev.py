@@ -23,27 +23,31 @@ class aksiyonlar:
 
 
     def irtifaYazdır(self):
-        if hasattr(self.mesaj, 'alt'):
+        if self.mesaj and hasattr(self.mesaj, 'alt'):
             irtifa = self.mesaj.alt
             self.logger.info(f"İrtifa: {irtifa} metre")
-        # Mert, çıktında olmadık yerde "metre" yazısı varsa yukardakini sil boş boş bakma koda.
+        sleep(1)
 
     def heartbYazdır(self):
-        if hasattr(self.heartbYazdır, 'HEARTBEAT'):
-            logger.info(mavlinkBaglantisi.recv_match(type="HEARTBEAT",blocking=True))
-      
+        heartbeat = mavlinkBaglantisi.recv_match(type="HEARTBEAT", blocking=True)
+        if heartbeat:
+            self.logger.info(heartbeat)
+        sleep(1)
+
+nesneler = aksiyonlar(logger, None)
+
+irtifa_thread = Thread(target=nesneler.irtifaYazdır)
+heartbeat_thread = Thread(target=nesneler.heartbYazdır)
+
+irtifa_thread.start()
+heartbeat_thread.start()
+
 while aktifMi:
     mesaj = mavlinkBaglantisi.recv_match(blocking=True)
     print(f"Gelen mesaj: {mesaj}")
-    
-    actionObjects = aksiyonlar(logger, mesaj)
 
-    irtifa_thread = Thread(target= actionObjects.irtifaYazdır)
-    heartbeat_thread = Thread(target= actionObjects.heartbYazdır)
+    aksiyonlar.mesaj = mesaj
+    sleep(1)
 
-    irtifa_thread.start()
-    heartbeat_thread.start()
-    
-    irtifa_thread.join()
-    heartbeat_thread.join()
-    sleep(0.5)
+irtifa_thread.join()
+heartbeat_thread.join()
