@@ -1,7 +1,7 @@
 import threading
 import logging
 from pymavlink import mavutil
-the_connection = mavutil.mavlink_connection("udp:127.0.1:14550")
+the_connection = mavutil.mavlink_connection("udp:127.0.0.1:14550")
 the_connection.wait_heartbeat()
 class bilgi:
     def attitute_i(self):
