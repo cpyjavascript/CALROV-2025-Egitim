@@ -28,5 +28,5 @@ Notlar:
 
 - Ödevi yapma zorunluluğunuz yok fakat takıma alınma konusunda size artı kazandıracaktır.
 
-Ödev Teslimi: 15 Ekim Salı
+Ödev Teslimi: 14 Ekim Pazartesi Saat 23.59'a kadar
 -
