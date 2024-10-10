@@ -1,1 +1,0 @@
-# CALROV-2025-Egitim
