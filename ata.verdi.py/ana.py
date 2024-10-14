@@ -1,9 +1,9 @@
 
 import argparse
 import time
-import glob
-import cv2
+import cv2 
 import numpy as np
+import socket
 detected=[]
 
 parser = argparse.ArgumentParser()
@@ -21,21 +21,16 @@ args = parser.parse_args()
 CONFIDENCE_THRESHOLD = args.confidence
 NMS_THRESHOLD = args.threshold
 #Buraya istedğimiz dosyanın path ini ekliyorum
-impath = r"C:\Users\PC\Desktop\ata.verdi.py\foto.1.jpg"
-
-
-weights_path = r"C:\Users\PC\Desktop\ata.verdi.py\Yolo\odev\yolov4-tiny.weights"  
-config_path = r"C:\Users\PC\Desktop\ata.verdi.py\Yolo\odev\yolov4-tiny.cfg"      
-names_path = r"C:\Users\PC\Desktop\ata.verdi.py\Yolo\odev\coco.names"
+impath = r"C:\Users\PC\Desktop\ata.verdi.py\ata.verdi.py\image2.jpg"
 
 with open(r"C:\Users\PC\Desktop\ata.verdi.py\Yolo\coco.names" , "r") as file:
     classes = file.read().strip().split("\n")
 
-weights = glob.glob(weights_path)[0]
-labels = glob.glob(names_path)[0]
-cfg = glob.glob(config_path)[0]
+weights = r"C:\Users\PC\Desktop\ata.verdi.py\Yolo\odev\yolov4-tiny.weights" 
+labels = r"C:\Users\PC\Desktop\ata.verdi.py\Yolo\odev\coco.names"
+cfg = r"C:\Users\PC\Desktop\ata.verdi.py\Yolo\odev\yolov4-tiny.cfg" 
 
-print("You are now using {} weights ,{} configs and {} labels.".format(weights, cfg, labels))
+print("Kullanılıyor: {} weights ,{} configs and {} labels.".format(weights, cfg, labels))
 
 lbls = list()
 with open(labels, "r") as f:
@@ -105,30 +100,31 @@ def detect(imgpath, nn):
                 x, y, w, h = boxes[i]
 
                 detected.append({
-                    'class_id' : class_ids[i],
-                    'confidence' : confidences[i],
                     'class_name' : classes[class_ids[i]],
+                    'class_id' : class_ids[i],
                     'box' : [x, y, w, h]
                 })
                 
-            for object in detected:
-             x, y, w, h = object['box']
-
-             text = f"{object['class_name']} : {object['confidence']:.2f}"
-
-
-             cv2.rectangle(image, (x, y), (x + w, y + h), (0, 0, 255), 2)
-             cv2.putText(image, text, (x, y - 20), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 2)
-
-             file = open("bilgi.txt", "a")
-             file.write(f"Class: {object['class_name']}, Confidence: {object['confidence']:.2f}, Box: [{x}, y={y}, w={w}, h={h}]\n")            
-
+         
           
     cv2.imshow("image", image)
+    cv2.imwrite("yenifoto.png",image)
     if args.output != "":
         cv2.imwrite(args.output, image)
     cv2.waitKey(0)
     cv2.destroyAllWindows()
-
-
 detect(impath, net)
+
+sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+sock.bind(("0.0.0.0", 41699))
+
+sock.listen()
+
+while True:
+    (client, address) = sock.accept()
+    for s in detected:
+     client.sendall(bytes(s, "utf-8"))
+
+
+
