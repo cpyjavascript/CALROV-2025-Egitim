@@ -1,9 +1,9 @@
 import cv2, socket, json, os
 import numpy as np
 
-CFG_PATH = 'C:/users/muslu/Desktop/hausaufgaben/ai/yolov4-tiny.cfg'
-WEIGHTS_PATH = 'C:/users/muslu/Desktop/hausaufgaben/ai/yolov4-tiny.weights'
-NAMES_PATH = 'C:/users/muslu/Desktop/hausaufgaben/ai/coco.names'
+CFG_PATH = 'ai/yolov4-tiny.cfg'
+WEIGHTS_PATH = 'ai/yolov4-tiny.weights'
+NAMES_PATH = 'ai/coco.names'
 
 HOST = '127.0.0.1'
 PORT = 12345
@@ -16,12 +16,12 @@ with open(NAMES_PATH, 'r') as f:
     classes = [line.strip() for line in f.readlines()]
 
 image_files = [
-    'C:/users/muslu/Desktop/hausaufgaben/images/image1.jpg',
-    'C:/users/muslu/Desktop/hausaufgaben/images/image2.jpg',
-    'C:/users/muslu/Desktop/hausaufgaben/images/image3.jpg',
-    'C:/users/muslu/Desktop/hausaufgaben/images/image4.jpg',
-    'C:/users/muslu/Desktop/hausaufgaben/images/image5.jpg',
-    'C:/users/muslu/Desktop/hausaufgaben/images/image6.jpg'
+    'images/image1.jpg',
+    'images/image2.jpg',
+    'images/image3.jpg',
+    'images/image4.jpg',
+    'images/image5.jpg',
+    'images/image6.jpg'
 ]
 
 def process_image(image_path):
