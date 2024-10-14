@@ -48,7 +48,7 @@ def process_image(image_path):
                 x = int(center_x - w / 2)
                 y = int(center_y - h / 2)
 
-                bounding_boxes.append((int(x), int(y), int(w), int(h)))
+                bounding_boxes.append([int(x), int(y), int(w), int(h)])
                 confidences.append(float(confidence))
                 class_ids.append(int(class_id))
 
@@ -57,10 +57,9 @@ def process_image(image_path):
     final_boxes = []
     if len(indices) > 0:
         for i in indices.flatten():
-            final_boxes.append((*bounding_boxes[i], class_ids[i]))
+            final_boxes.append((*bounding_boxes[i], class_ids[i], confidences[i]))
 
     return final_boxes
-
 
 server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 server_socket.bind((HOST, PORT))
