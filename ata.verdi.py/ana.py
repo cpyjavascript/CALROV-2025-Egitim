@@ -32,11 +32,11 @@ cfg = r"C:\Users\PC\Desktop\ata.verdi.py\Yolo\odev\yolov4-tiny.cfg"
 
 print("Kullanılıyor: {} weights ,{} configs and {} labels.".format(weights, cfg, labels))
 
-lbls = list()
+labls = list()
 with open(labels, "r") as f:
-    lbls = [c.strip() for c in f.readlines()]
+    labls = [c.strip() for c in f.readlines()]
 
-COLORS = np.random.randint(0, 255, size=(len(lbls), 3), dtype="uint8")
+COLORS = np.random.randint(0, 255, size=(len(labls), 3), dtype="uint8")
 
 net = cv2.dnn.readNetFromDarknet(cfg, weights)
 net.setPreferableBackend(cv2.dnn.DNN_BACKEND_CUDA)
@@ -79,9 +79,9 @@ def detect(imgpath, nn):
                 confidences.append(float(confidence))
                 class_ids.append(class_id)
 
-    idxs = cv2.dnn.NMSBoxes(boxes, confidences, CONFIDENCE_THRESHOLD, NMS_THRESHOLD)
-    if len(idxs) > 0:
-        for i in idxs.flatten():
+    idexs = cv2.dnn.NMSBoxes(boxes, confidences, CONFIDENCE_THRESHOLD, NMS_THRESHOLD)
+    if len(idexs) > 0:
+        for i in idexs.flatten():
             (x, y) = (boxes[i][0], boxes[i][1])
             (w, h) = (boxes[i][2], boxes[i][3])
 
@@ -95,8 +95,8 @@ def detect(imgpath, nn):
             cv2.putText(
                 image, label, (0, 25), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 2
             )
-        if len(idxs) > 0:
-            for i in idxs.flatten():
+        if len(idexs) > 0:
+            for i in idexs.flatten():
                 x, y, w, h = boxes[i]
 
                 detected.append({
